@@ -54,7 +54,7 @@ public class WeightedQuickUnionUF {
         count--;
     }
 
-/*
+
     public static void main(String[] args) {
         int N = StdIn.readInt();
         WeightedQuickUnionUF uf = new WeightedQuickUnionUF(N);
@@ -71,6 +71,6 @@ public class WeightedQuickUnionUF {
         }
         StdOut.println(uf.count() + " components");
     }
-*/
+
 }
 

@@ -10,7 +10,7 @@ public class Percolation {
 	public Percolation( int N )              // create N-by-N grid, with all sites blocked
     {
 		grid = new int [N][N] ;
-		unionFind = new WeightedQuickUnionUF (N);
+		unionFind = new WeightedQuickUnionUF ( N * N );
     }
 	
 	public void open(int i, int j)         // open site (row i, column j) if it is not already
@@ -33,6 +33,7 @@ public class Percolation {
 	
 	public boolean percolates()            // does the system percolate?
 	{
+		
 		unionFind.count(); //TODO 
 		return false;
 		   
