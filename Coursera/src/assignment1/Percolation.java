@@ -31,5 +31,10 @@ public class Percolation {
 		else return false;
 	}
 	
-
+	public boolean percolates()            // does the system percolate?
+	{
+		unionFind.count(); //TODO 
+		return false;
+		   
+	}
 }
