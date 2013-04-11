@@ -1,11 +1,7 @@
 package assignment1;
 
 public class Percolation {
-	final int BLOCK = 0;
-	final int OPEN = 1;
-	final int FULL = 2;
-	int grid[][];
-	WeightedQuickUnionUF unionFind;
+
 	
 	public Percolation( int N )              // create N-by-N grid, with all sites blocked
     {
