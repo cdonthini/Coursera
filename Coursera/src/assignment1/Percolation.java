@@ -19,10 +19,10 @@ public class Percolation {
 	{
 		grid[i][j] = OPEN;
 		
-		if ( i > 0 && isOpen( i - 1 , j ) ) quickUnion.union( ( size * ( i - 1 ) ) + j , size * ( i )  + j); // up
-		if ( isOpen( i + 1 , j ) ) quickUnion.union( ( size * ( i + 1 ) ) + j , size * ( i )  + j); // down 
-		if ( j > 0 && isOpen( i , j - 1 ) ) quickUnion.union( ( size * ( i ) ) + ( j - 1) , size * ( i )  + j); // left 
-		if ( isOpen( i , j + 1 ) ) quickUnion.union( ( size * ( i ) ) + ( j + 1) , size * ( i )  + j); // right 
+		if ( ( i - 1 ) >= 0 && isOpen( i - 1 , j ) ) quickUnion.union( ( size * ( i - 1 ) ) + j , size * ( i )  + j); // up
+		if ( ( j - 1 ) >= 0 && isOpen( i , j - 1 ) ) quickUnion.union( ( size * ( i ) ) + ( j - 1) , size * ( i )  + j); // left 
+		if ( ( j + 1 ) < size && isOpen( i , j + 1 ) ) quickUnion.union( ( size * ( i ) ) + ( j + 1) , size * ( i )  + j); // right
+		if ( ( i + 1 ) < size && isOpen( i + 1 , j ) ) quickUnion.union( ( size * ( i + 1 ) ) + j , size * ( i )  + j); // down 
 		
 	}
 	
