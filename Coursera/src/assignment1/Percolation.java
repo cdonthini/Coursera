@@ -3,6 +3,8 @@ package assignment1;
 public class Percolation {
 	int size = 0;
 	boolean FRowOn = false;
+	boolean firColFillB[];
+	int firColFill[];
 	final int BLOCK = 0;
 	final int OPEN = 1;
 	final int FULL = 2;
@@ -18,13 +20,17 @@ public class Percolation {
 	{
 		size = N;
 		grid = new int[N][N];
+		firColFillB = new boolean[N];
+		//firColFill = new int[N];
 		quickUnion = new WeightedQuickUnionUF(N * N);
 	}
 
 	public void open(int i, int j) // open site (row i, column j) if it is not
 									// already
 	{
-		if ( i == 0 ) FRowOn = true;
+		if ( i >= size || j >= size || j < 0 || i < 0 ) {
+			throw new java.lang.IndexOutOfBoundsException();
+		}
 		grid[i][j] = OPEN;
 		if ((i - 1) >= 0 && isOpen(i - 1, j)) {
 			quickUnion.union((size * (i - 1)) + j, size * (i) + j); // up
@@ -35,38 +41,22 @@ public class Percolation {
 			
 		}
 		if ((j + 1) < size && isOpen(i, j + 1)) {
-			quickUnion.union((size * (i)) + (j + 1), size * (i) + j); // right
+			quickUnion.union(size * (i) + j , (size * (i)) + (j + 1) ); // right
 			
 		}
 		if ((i + 1) < size && isOpen(i + 1, j)) {
-			quickUnion.union((size * (i + 1)) + j, size * (i) + j); // down
+			quickUnion.union( size * (i) + j , (size * (i + 1)) + j ); // down
 			
 		}
+		
+		if ( i == 0 ) {
+			FRowOn = true;
+			firColFillB [ j ] = true;
+			//firColFill [ j ] = quickUnion.find( j );
+		}
 
 	}
 
-	private void fill(int i, int j , int prev ) {
-		
-		
-		grid[i][j] = FULL;
-		
-		if ((i - 1) >= 0 && isFull(i - 1, j) && ( prev != DOWN ) ) {
-			//quickUnion.union((size * (i - 1)) + j, size * (i) + j); // up
-			fill(i - 1, j, UP);
-		}
-		if ((j - 1) >= 0 && isFull(i, j - 1)  && ( prev != RIGHT ) ) {
-			//quickUnion.union((size * (i)) + (j - 1), size * (i) + j); // left
-			fill(i, j - 1, LEFT);
-		}
-		if ((j + 1) < size && isFull(i, j + 1) && ( prev != LEFT ) ) {
-			//quickUnion.union((size * (i)) + (j + 1), size * (i) + j); // right
-			fill(i, j + 1, RIGHT);
-		}
-		if ((i + 1) < size && isFull(i + 1, j)  && ( prev != UP ) ) {
-			//quickUnion.union((size * (i + 1)) + j, size * (i) + j); // down
-			fill(i + 1, j, DOWN);
-		}
-	}
 
 	public boolean isOpen(int i, int j) // is site (row i, column j) open?
 	{
@@ -89,8 +79,13 @@ public class Percolation {
 	{
 		if( FRowOn ) {
 			for ( int i = 0; i < size; i++ ) {
-				if ( grid[0][i] >= OPEN) {
-					fill( 0 , i , 0);
+				for ( int j = 0; j < size; j++ ) {
+					if ( firColFillB [ i ] ) {
+						if ( quickUnion.find( i ) == quickUnion.find( ( size * ( size - 1 ) ) + j ) ) {
+							return true;
+						}
+					}
+					else continue;
 				}
 			}
 		}
