@@ -100,8 +100,25 @@ public class Deque<Item> implements Iterable<Item> {
 	public Iterator<Item> iterator() // return an iterator over items in order
 										// from front to end
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new ListIterator();
 	}
+	
+	private class ListIterator implements Iterator<Item> {
+		private Node current = head;
+		public boolean hasNext() {
+			
+			return current != null;
+		}
 
+		public Item next() {
+			if ( !hasNext() ) throw new java.util.NoSuchElementException();
+			current = current.next;
+			return current.item;
+		}
+
+		public void remove() {
+			throw new java.lang.UnsupportedOperationException();
+		}
+		
+	}
 }
