@@ -121,4 +121,21 @@ public class Deque<Item> implements Iterable<Item> {
 		}
 		
 	}
+	
+	public static void main(String[] args) {
+        Deque<String> q = new Deque<String>();
+        while (!StdIn.isEmpty()) {
+            String item = StdIn.readString();
+            if (item.equals("l")) 
+                q.addLast(item);
+            else if (item.equals("--"))
+                StdOut.println(q.removeFirst()+ " ");
+            else if (item.equals("f"))
+                q.addFirst(item);
+            else
+                StdOut.println(q.removeLast()+ " ");
+             StdOut.println("(" + q.size() + " left on Deque)");
+        }
+       
+    }
 }
