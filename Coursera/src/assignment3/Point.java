@@ -62,8 +62,8 @@ public class Point implements Comparable<Point> {
 
 	// slope between this point and that point
 	public double slopeTo(Point that) {
-		int denom = that.x - this.x;
-		int numer = that.y - this.y;
+		double denom = that.x - this.x;
+		double numer = that.y - this.y;
 
 		if (denom == 0) {
 
