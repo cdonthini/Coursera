@@ -5,7 +5,7 @@
  *  Reads in data of various types from standard input.
  *
  *************************************************************************/
-package assignment3;
+package assignment4;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;

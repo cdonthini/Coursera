@@ -5,7 +5,7 @@
  *  Reads in data of various types from standard input, files, and URLs.
  *
  *************************************************************************/
-package assignment3;
+package assignment4;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
