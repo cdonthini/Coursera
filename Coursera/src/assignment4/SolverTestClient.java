@@ -12,7 +12,9 @@ public class SolverTestClient {
 	        for (int j = 0; j < N; j++)
 	            blocks[i][j] = in.readInt();
 	    Board initial = new Board(blocks);
-	    
+	    System.out.println(initial.hamming());
+	    System.out.println(initial.manhattan());
+	    Board twin = initial.twin();
 	    // solve the puzzle
 	    Solver solver = new Solver(initial);
 
