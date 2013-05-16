@@ -1,4 +1,9 @@
 package assignment4;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 class Point {
 	int x , y;
 	public Point ( int x, int y ) {
@@ -135,9 +140,16 @@ public class Board {
 	/**
 	 * @return // all neighboring boards
 	 */
-	public Iterable<Board> neighbors() {
-		
-		return null;
+	public List<Board> neighbors() {
+		List<Board> listofBoards = new ArrayList<Board>();
+		int[][] temp = board;
+		if ( empty.getY() - 1 > 0 ){
+			temp[empty.getX()][empty.getY()] = temp[empty.getX()][empty.getY()-1];
+			temp[empty.getX()][empty.getY()-1] = 0;
+			listofBoards.add(new Board(temp));
+		}
+		return listofBoards;
 	}
+	
 
 }
