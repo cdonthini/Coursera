@@ -1,7 +1,6 @@
 package assignment4;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 class Point {
@@ -31,7 +30,7 @@ public class Board {
 
 	int[][] board, goalBoard;
 	int movesMade = 0;
-	Point empty = new Point (0,0);
+	Point empty;
 	/**
 	 * construct a board from an N-by-N array of blocks (where blocks[i][j] =
 	 * block in row i, column j)
@@ -40,8 +39,14 @@ public class Board {
 	 */
 	public Board(int[][] blocks) {
 		assert (blocks != null);
-		board = blocks;
-
+		this.board = blocks;
+		this.empty =  new Point (0,0);
+		setGoalBoard(board);
+	}
+	public Board(int[][] blocks, Point empty) {
+		assert (blocks != null);
+		this.board = blocks;
+		this.empty =  empty;
 		setGoalBoard(board);
 	}
 
@@ -110,21 +115,20 @@ public class Board {
 	 *         row
 	 */
 	public Board twin() {
-		Board twin = new Board(board);
-
+		
 		for (int i = 0; i < dimension(); i++) {
 			for (int j = 0; j < dimension() - 1; j++) {
-				if (twin.board[i][j] > 0 && twin.board[i][j + 1] > 0) {
-					int temp = twin.board[i][j];
-					twin.board[i][j] = twin.board[i][j + 1];
-					twin.board[i][j + 1] = temp;
+				if (this.board[i][j] > 0 && this.board[i][j + 1] > 0) {
+					int temp = this.board[i][j];
+					this.board[i][j] = this.board[i][j + 1];
+					this.board[i][j + 1] = temp;
 					i = dimension();
 					break;
 
 				}
 			}
 		}
-		return twin;
+		return this;
 	}
 
 	/**
@@ -132,9 +136,7 @@ public class Board {
 	 */
 	public boolean equals(Object y) {
 		Board that = (Board) y;
-
 		return this.board == that.board;
-
 	}
 
 	/**
@@ -142,12 +144,40 @@ public class Board {
 	 */
 	public List<Board> neighbors() {
 		List<Board> listofBoards = new ArrayList<Board>();
-		int[][] temp = board;
-		if ( empty.getY() - 1 > 0 ){
-			temp[empty.getX()][empty.getY()] = temp[empty.getX()][empty.getY()-1];
-			temp[empty.getX()][empty.getY()-1] = 0;
-			listofBoards.add(new Board(temp));
+		final int[][] temp = board;
+		Point newEmpty;
+		/**
+		 * Need to add stuff about disallowing a previously made move
+		 */
+		//System.out.println(board[empty.getX()][empty.getY()-1]);
+		if ( empty.getY() - 1 >= 0 ){
+			board[empty.getX()][empty.getY()] = board[empty.getX()][empty.getY()-1];
+			board[empty.getX()][empty.getY()-1] = 0;
+			newEmpty = new Point(empty.getX(),empty.getY()-1);
+			listofBoards.add(new Board(board,newEmpty));
 		}
+		this.board = temp ;
+		if ( empty.getY() + 1 < dimension()){
+			board[empty.getX()][empty.getY()] = board[empty.getX()][empty.getY()+1];
+			board[empty.getX()][empty.getY()+1] = 0;
+			newEmpty = new Point(empty.getX(),empty.getY()+1);
+			listofBoards.add(new Board(board,newEmpty));
+		}
+		this.board = temp;
+		if ( empty.getX() + 1 < dimension()){
+			board[empty.getX()][empty.getY()] = board[empty.getX()+1][empty.getY()];
+			board[empty.getX()+1][empty.getY()] = 0;
+			newEmpty = new Point(empty.getX()+1,empty.getY());
+			listofBoards.add(new Board(board,newEmpty));
+		}
+		this.board = temp;
+		if ( empty.getY() - 1 >= 0){
+			board[empty.getX()][empty.getY()] = board[empty.getX()-1][empty.getY()];
+			board[empty.getX()-1][empty.getY()] = 0;
+			newEmpty = new Point(empty.getX()-1,empty.getY());
+			listofBoards.add(new Board(board,newEmpty));
+		}
+		this.board = temp;
 		return listofBoards;
 	}
 	

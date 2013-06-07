@@ -1,5 +1,7 @@
 package assignment4;
 
+import java.util.List;
+
 
 
 public class SolverTestClient {
@@ -14,7 +16,8 @@ public class SolverTestClient {
 	    Board initial = new Board(blocks);
 	    System.out.println(initial.hamming());
 	    System.out.println(initial.manhattan());
-	    Board twin = initial.twin();
+	    //Board twin = initial.twin();
+	    List<Board> neighbors = initial.neighbors();
 	    // solve the puzzle
 	    Solver solver = new Solver(initial);
 
